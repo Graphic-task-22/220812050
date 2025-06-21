@@ -1,38 +1,15 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Stats from 'three/addons/libs/stats.module.js';
-import cube from './mesh/cube';
-import sphere from './mesh/sphere';
-import plane from './mesh/plane';
-import sprite from './sprite/sprite';
-import points from './points';
-import tube from './mesh/TubeGeometry';
-import mesh from './mesh/Llama'
 // import mesh from './mesh/ExtrudeGeometry';
 // import mesh from './mesh/ShapeGeometry';
-// import mesh, { tubePoints } from './demo/tunnle';
-// import mesh, { updatePosition } from './demo/mountain'; //山脉
-// 引入gui.js
-// import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import mesh, { tubePoints } from './demo/tunnle';
 
 let renderer, camera, scene; // 全局变量 场景、相机、渲染器
 function init() {
   // Create a scene
   scene = new THREE.Scene();
-  // console.log('cube', cube);
-  // // Add the cube to the scene
-  // scene.add(cube);
-  // Add the sphere to the scene
-  //scene.add(sphere);  //地球模型
-  // scene.add(plane);
-  // scene.add(sprite);
-  //scene.add(points);
-
   scene.add(mesh);
-
-
-
-
 
 
 
@@ -108,37 +85,27 @@ function initHelper(params) {
 }
 
 // tunnle.js的动画
-// let i = 0;
-// function animate() {
-//   if (i < tubePoints.length - 1) {
-//     camera.position.copy(tubePoints[i]);
-//     camera.lookAt(tubePoints[i + 1]);
-//     // i += 1;
-//   } else {
-//     i = 0;
-//   }
-
-//   renderer.render(scene, camera);
-//   requestAnimationFrame(animate);
-// }
-
-// document.addEventListener('keydown', (e) => {
-//   if(e.code === 'ArrowDown') {
-//       i += 10;
-//   }
-// }
-// )
-
-// mountain.js的动画循环
+let i = 0;
 function animate() {
-  requestAnimationFrame(animate);
+  if (i < tubePoints.length - 1) {
+    camera.position.copy(tubePoints[i]);
+    camera.lookAt(tubePoints[i + 1]);
+    // i += 1;
+  } else {
+    i = 0;
+  }
 
-  // 更新顶点位置
-  // updatePosition();
-
-  // 渲染场景
   renderer.render(scene, camera);
+  requestAnimationFrame(animate);
 }
+
+document.addEventListener('keydown', (e) => {
+  if(e.code === 'ArrowDown') {
+      i += 10;
+  }
+}
+)
+
 
 function initStats(params) {
   const stats = new Stats();
@@ -153,29 +120,6 @@ function initStats(params) {
   }
   render();
 }
-
-// const gui = new GUI();
-// console.log('gui', gui);
-// // 执行方法
-// const settings = {
-//   clear() {
-//     gui.children[0].reset(); // 重置
-//   },
-//   setDefault() {
-//     cube.position.set(0, 0, 0);
-//   },
-//   resetLight() {
-//     ambientLight.intensity = 0;
-//   },
-//   x: 0,
-// };
-// gui.add(settings, 'clear'); //0
-// gui.add(settings, 'setDefault'); // 重置到默认值
-// gui.add(settings, 'resetLight'); // 重置环境光强度
-// gui.add(settings, 'x', -100, 100); // 重置环境光强度
-// gui.add(settings, 'startAnimate'); // 重置环境光强度
-// gui.add(settings, 'stopAnimate'); // 重置环境光强度
-
 
 init();
 initHelper();

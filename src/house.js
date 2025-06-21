@@ -1,39 +1,13 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Stats from 'three/addons/libs/stats.module.js';
-import cube from './mesh/cube';
-import sphere from './mesh/sphere';
-import plane from './mesh/plane';
-import sprite from './sprite/sprite';
-import points from './points';
-import tube from './mesh/TubeGeometry';
-import mesh from './mesh/Llama'
-// import mesh from './mesh/ExtrudeGeometry';
-// import mesh from './mesh/ShapeGeometry';
-// import mesh, { tubePoints } from './demo/tunnle';
-// import mesh, { updatePosition } from './demo/mountain'; //山脉
-// 引入gui.js
-// import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import houseMesh from './demo/house';
 
 let renderer, camera, scene; // 全局变量 场景、相机、渲染器
 function init() {
   // Create a scene
   scene = new THREE.Scene();
-  // console.log('cube', cube);
-  // // Add the cube to the scene
-  // scene.add(cube);
-  // Add the sphere to the scene
-  //scene.add(sphere);  //地球模型
-  // scene.add(plane);
-  // scene.add(sprite);
-  //scene.add(points);
-
-  scene.add(mesh);
-
-
-
-
-
+  scene.add(houseMesh);
 
 
 

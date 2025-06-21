@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MY-THREE</title>
-    <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="./src/index.js"></script>
-  </head>
-  <body>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MY-THREE</title>
+  <link rel="stylesheet" href="./src/index.css" />
+  <script type="module" src="./src/index.js"></script>
+  <style>
+    .nav-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .nav-btn {
+      padding: 8px 16px;
+      margin-right: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="window.location.href='earth&sprite.html'">
+      地球贴图和粒子系统
+    </button>
+    <button class="nav-btn" onclick="window.location.href='mountain.html'">
+      山脉模型
+    </button>
+    <button class="nav-btn" onclick="window.location.href='tunnle.html'">
+      隧道模型
+    </button>
+    <button class="nav-btn" onclick="window.location.href='house.html'">
+      盖房子
+    </button>
+  </div>
+</body>
+
 </html>

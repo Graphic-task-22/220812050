@@ -1,36 +1,69 @@
 import * as THREE from 'three';
 
+// 加载雪花纹理
 const texture = new THREE.TextureLoader().load("./src/assets/snowflake1.png");
 const spriteMaterial = new THREE.SpriteMaterial({
-    map: texture, 
+    map: texture,
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending
 });
-const sprite = new THREE.Sprite(spriteMaterial);
 
 const group = new THREE.Group();
+
+// 雪花数据结构
+const snowflakes = [];
+
 for (let i = 0; i < 16000; i++) {
-    // 精灵模型共享材质
     const sprite = new THREE.Sprite(spriteMaterial);
     group.add(sprite);
-    sprite.scale.set(1, 1, 1);
-    // 设置精灵模型位置，在长方体空间上上随机分布
+    
+    // 随机大小 (0.2 - 1.5)
+    const size = 0.2 + Math.random() * 1.3;
+    sprite.scale.set(size, size, size);
+    
+    // 初始位置
     const x = 1000 * (Math.random() - 0.5);
     const y = 600 * Math.random();
     const z = 1000 * (Math.random() - 0.5);
-    sprite.position.set(x, y, z)
+    sprite.position.set(x, y, z);
+    
+    // 存储雪花属性
+    snowflakes.push({
+        sprite,
+        speed: 0.5 + Math.random(), // 下落速度
+        rotationSpeed: (Math.random() - 0.5) * 0.02, // 旋转速度
+        sway: Math.random() * 0.1, // 左右摇摆幅度
+        swaySpeed: Math.random() * 0.01 // 摇摆速度
+    });
 }
 
+let time = 0;
 function loop() {
-    // loop()每次执行都会更新雨滴的位置，进而产生动画效果
-    group.children.forEach(sprite => {
-        // 雨滴的y坐标每次减1
-        sprite.position.y -= 1;
+    time += 0.01;
+    
+    snowflakes.forEach(flake => {
+        const { sprite } = flake;
+        
+        // 下落
+        sprite.position.y -= flake.speed;
+        
+        // 左右摇摆
+        sprite.position.x += Math.sin(time * flake.swaySpeed) * flake.sway;
+        
+        // 旋转 (修改这里)
+        sprite.rotation.z += flake.rotationSpeed;
+        
+        // 重置位置
         if (sprite.position.y < 0) {
-            // 如果雨滴落到地面，重置y，从新下落
             sprite.position.y = 600;
+            sprite.position.x = 1000 * (Math.random() - 0.5);
+            sprite.position.z = 1000 * (Math.random() - 0.5);
         }
     });
+    
     requestAnimationFrame(loop);
 }
 loop();
 
-export default sprite;
+export default group;
